@@ -16,9 +16,6 @@ jobs:
       - name: Instal YARN dependencies
         run: yarn install
 
-      - name: Build project for windows
-        run: yarn build:win
-
       - name: Publish project for windows
         run: yarn run publish
 
