@@ -1,0 +1,44 @@
+name: Production release flow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-project:
+    name: Build and release application
+    runs-on: windows-2016
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Instal YARN dependencies
+        run: yarn install
+
+      - name: Build project for windows
+        run: yarn build:win
+
+      - name: Publish project for windows
+        run: yarn run publish
+
+      - name: Zip the files
+        uses: papeloto/action-zip@v1
+        with:
+          files: dist/win-ia32-unpacked
+          dest: connect-marketing.zip
+
+      - name: Bump the package version
+        run: yarn run bump
+
+      - name: Extract version
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.0.6
+      # From now you can access the version
+
+      - name: Release project files to GitHub
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{steps.extract_version.outputs.version}}
+          name: Release v.${{steps.extract_version.outputs.version}}
+          files: connect-marketing.zip

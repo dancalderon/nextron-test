@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "nextron",
     "build": "nextron build",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "win": "electron-builder --windows nsis:ia32",
+    "publish":"electron-builder -p always"
   },
   "dependencies": {
     "electron-serve": "^1.1.0",
