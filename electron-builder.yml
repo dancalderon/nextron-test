@@ -1,6 +1,5 @@
-appId: com.example.nextron
-productName: My Nextron App
-copyright: Copyright © 2018 Yoshihide Shiono
+appId: connect.marketing
+productName: CM-app
 directories:
   output: dist
   buildResources: resources
@@ -9,7 +8,4 @@ files:
     filter:
       - package.json
       - app
-win:
-  publish:
-    - github
-    - bintray
+publish: github
